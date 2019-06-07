@@ -13,16 +13,14 @@ variable "AMI" {
 	default {
 	"eu-central-1" = "ami-c86c3f23"
         "eu-west-3" = "ami-0cfbf4f6db41068ac"}}
-
-
+#==============================================================
 variable "WEB_PORT" {
         description             = "Port for web server"
         default                 = "80"}
 variable "SSH" {
         description = "Port for ssh"
         default = "22"}
-
-
+#=============================================================
 variable "CIDR_VPC" {
 	description = "CIDR block for the VPC"
 	default = "192.168.0.0/16"
@@ -39,7 +37,7 @@ variable "CIDR_PRIVATE_2" {
         description = "CIDR block for the subnet"
         default = "192.168.30.0/24"
 }
-
+#================================================================
 variable "ENVIRONMENT" {
 	description = "Environment tag"
   	default = "TASK_2"

@@ -14,9 +14,14 @@ resource "aws_eip" "ELASTIK" {
         instance = "${aws_instance.BASTION.id}"
         vpc = true
 }
+resource "aws_eip" "ELASTIK_NAT" {
+        
+        vpc = true
+}
+
 resource "aws_nat_gateway" "NAT" {
         subnet_id = "${aws_subnet.SUBNET_PUBLIC.id}"
-        allocation_id = "${aws_eip.ELASTIK.id}"
+        allocation_id = "${aws_eip.ELASTIK_NAT.id}"
         depends_on = ["aws_internet_gateway.IGW"]
         tags = {
                 Environment = "${var.ENVIRONMENT}"}

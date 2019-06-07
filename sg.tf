@@ -1,5 +1,5 @@
 resource "aws_security_group" "ACCESS" {
-        Name = "Bastion-security-group"
+        name = "Bastion-security-group"
         vpc_id = "${aws_vpc.CUSTOM.id}"
         ingress {
                 from_port   = 22
@@ -16,3 +16,5 @@ resource "aws_security_group" "ACCESS" {
         tags = {
                 Environment = "${var.ENVIRONMENT}"}
 }
+
+

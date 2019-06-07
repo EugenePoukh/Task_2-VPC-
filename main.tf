@@ -22,17 +22,22 @@ resource "aws_instance" "MYSQL" {
         key_name = "${var.KEY}"
         tags = {
 		role	    = "mysql"
-                Environment = "${var.ENVIRONMENT}"}
+                Environment = "${var.ENVIRONMENT}"
+		Name	    = "Mysql"}
 }
 resource "aws_launch_configuration" "ASG_LAUNCH" {
 	image_id	= "${lookup(var.AMI,var.REGION)}"
 	instance_type	= "${var.TYPE}"
 	security_groups	= ["${aws_security_group.ACCESS.id}"]
+	key_name 	= "${var.KEY}"
+	name		= "APP.${count.index}"
 }
 resource "aws_autoscaling_group" "ASG" {
 	launch_configuration	= "${aws_launch_configuration.ASG_LAUNCH.id}"
+	vpc_zone_identifier	= ["${aws_subnet.SUBNET_PRIVATE_1.id}", "${aws_subnet.SUBNET_PRIVATE_2.id}"]
 	min_size		= 2
 	max_size		= 2
+	load_balancers		= ["${aws_elb.LOAD_BALANCER.name}"]
 	
 	tag {
 		key			= "role"	

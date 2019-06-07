@@ -44,14 +44,16 @@ variable "ENVIRONMENT" {
 }
 variable "A_Z_1" {
   description = "availability zone to create subnet"
-  default = "eu-central-1"
+  default = "eu-central-1a"
 }
 variable "A_Z_2" {
   description = "availability zone to create subnet"
-  default = "eu-central-1"
+  default = "eu-central-1b"
 }
 variable "A_Z_3" {
   description = "availability zone to create subnet"
-  default = "eu-central-1"
+  default = "eu-central-1c"
 }
+
+
 

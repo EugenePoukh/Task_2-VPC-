@@ -30,6 +30,19 @@ resource "aws_route" "PRIVATE_ROUTE" {
         destination_cidr_block  = "0.0.0.0/0"
         nat_gateway_id          = "${aws_nat_gateway.NAT.id}"
 }
+resource "aws_route_table" "PRIVATE_ROUTE_TABLE_2"{
+        vpc_id = "${aws_vpc.CUSTOM.id}"
+        tags = {
+                Environment = "${var.ENVIRONMENT}"
+                Name        = "Private route table 2"
+        }
+}
+resource "aws_route" "PRIVATE_ROUTE_2" {
+        route_table_id          = "${aws_route_table.PRIVATE_ROUTE_TABLE_2.id}"
+        destination_cidr_block  = "0.0.0.0/0"
+        nat_gateway_id          = "${aws_nat_gateway.NAT.id}"
+}
+
 #==============Route table associations
 
 resource "aws_route_table_association" "PUBLIC_SUBNET_ASSOCIATION" {
@@ -38,11 +51,11 @@ resource "aws_route_table_association" "PUBLIC_SUBNET_ASSOCIATION" {
 }
 
 resource "aws_route_table_association" "PRIVATE_SUBNET_ASSOCIATION" {
-        subnet_id       = "${aws_subnet.SUBNET_PRIVATE_2.id}"
+        subnet_id       = "${aws_subnet.SUBNET_PRIVATE_1.id}"
         route_table_id  = "${aws_route_table.PRIVATE_ROUTE_TABLE.id}"
 }
-#resource "aws_route_table_association" "PRIVATE_SUBNET_ASSOCIATION" {
-#        subnet_id       = "${aws_subnet.SUBNET_PRIVATE_3.id}"
-#        route_table_id  = "${aws_route_table.PRIVATE_ROUTE_TABLE.id}"
-#}
+resource "aws_route_table_association" "PRIVATE_SUBNET_2_ASSOCIATION" {
+        subnet_id       = "${aws_subnet.SUBNET_PRIVATE_2.id}"
+        route_table_id  = "${aws_route_table.PRIVATE_ROUTE_TABLE_2.id}"
+}
 
